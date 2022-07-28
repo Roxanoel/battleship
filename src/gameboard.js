@@ -6,8 +6,9 @@ function Gameboard() {
 
     return {
         cells,
-        boatFits(size) {
-
+        boatFits(position, size) {
+            // Horizontal fit: col index at start + size should be less than final col index
+            return (position.y + (size -1) <= 9)
         }
     }
 }

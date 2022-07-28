@@ -21,9 +21,9 @@ describe('Gameboard functions', () => {
     });
 
     test('Function tests whether a boat will fit horizontally based on size', () => {
-        expect(testBoard.boatFits(cells[0], 4)).toBe(true);
+        expect(testBoard.boatFits(testBoard.cells[6], 4)).toBe(true);
     });
     test('Boat will not fit horizontally if there is not enough space', () => {
-        expect(testBoard).boatFits(cells[9], 4).toBe(false);
-    })
+        expect(testBoard.boatFits(testBoard.cells[9], 4)).toBe(false);
+    });
 });
