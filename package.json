@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "A Battleship game for The Odin Project.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "jest --watch",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch",
     "watch-b": "npx webpack -w"
   },
   "repository": {

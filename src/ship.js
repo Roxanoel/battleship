@@ -20,4 +20,4 @@ function initializeHitArray(length) {
     return hitArray;
 }
 
-module.exports = Ship;
+export default Ship;

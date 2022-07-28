@@ -1,9 +1,14 @@
+import Ship from "./ship";
+
 /* eslint-disable no-use-before-define */
 function Gameboard() {
     const cells = generateCells();
 
     return {
         cells,
+        boatFits(size) {
+
+        }
     }
 }
 
@@ -27,4 +32,4 @@ function generateCells() {
     return cells;
 }
 
-module.exports = Gameboard;
+export default Gameboard;

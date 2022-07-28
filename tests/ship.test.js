@@ -1,4 +1,4 @@
-const Ship = require('../src/ship');
+import Ship from '../src/ship';
 
 describe('ship properties and functions', () => {
     // Setup
