@@ -12,6 +12,11 @@ describe('Gameboard functions', () => {
         expect(testBoard.cells.length).toBe(100);
     });
 
+    test('Cells have x and y coordinates', () => {
+        expect(testBoard.cells.every(cell => cell.hasOwnProperty('x') && cell.hasOwnProperty('y')))
+        .toBe(true);
+    });
+
     test('Each cell is an object with an initially "false" occupied condition', () => {
         expect(testBoard.cells[0].occupied).toBe(false);
     });
