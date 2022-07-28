@@ -63,12 +63,12 @@ describe('Gameboard functions', () => {
     });
 
     test('Attempting an attack marks the targeted cell as attempted', () => {
-        testBoard.receiveAttack(0);
+        testBoard.receiveAttack(testBoard.cells[0]);
         expect(testBoard.cells[0].attempted).toBe(true);
     });
 
     test('receiveAttack returns false if the targeted cell was already attempted', () => {
-        testBoard.receiveAttack(0);
-        expect(testBoard.receiveAttack(0)).toBe(false);
+        testBoard.receiveAttack(testBoard.cells[0]);
+        expect(testBoard.receiveAttack(testBoard.cells[0])).toBe(false);
     })
 });

@@ -14,6 +14,7 @@ function Gameboard() {
             for(let i = position.y; i < position.y + size; i+=1) {
                 if (this.cells[i].occupied === true) return false;
             }
+            // Otherwise: 
             return true;
         },
         attemptPlaceShip(position, size) {
@@ -27,6 +28,11 @@ function Gameboard() {
             // Store ship in array
             this.ships.push(Ship(4));
 
+            return true;
+        },
+        receiveAttack(position) {
+            if (position.attempted === true) return false;
+            position.markAsAttempted();
             return true;
         },
     }
@@ -44,8 +50,12 @@ function generateCells() {
                 x: i,
                 y: j,
                 occupied: false,
+                attempted: false,
                 occupyCell() {
                     this.occupied = true;
+                },
+                markAsAttempted() {
+                    this.attempted = true;
                 },
             }
             cells.push(cell);
