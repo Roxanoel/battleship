@@ -13,6 +13,10 @@ describe('ship properties and functions', () => {
     test('Ship has correct length', () => {
         expect(testShip.length).toBe(4);
     });
+
+    test('Hits array initializes correctly', () => {
+        expect(testShip.hits).toStrictEqual([false, false, false, false]);
+    });
     
     test('Ship correctly registers hit', () => {
         testShip.hit(2);
