@@ -13,8 +13,8 @@ module.exports = {
   //transform: {
   //  ""
   //},
-  testMatch: ["./test/**/?(*.)(spec|test).js"],
-  testPathIgnorePatterns: ["./(node_modules|bin|build)"],
+  testMatch: ["<rootDir>/tests/?(*.)(spec|test).js"],
+  testPathIgnorePatterns: ["<rootDir>/(node_modules|bin|build)"],
   clearMocks: true,
 };
 
