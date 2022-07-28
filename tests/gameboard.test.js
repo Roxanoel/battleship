@@ -27,13 +27,17 @@ describe('Gameboard functions', () => {
         expect(testBoard.boatFits(testBoard.cells[9], 4)).toBe(false);
     });
 
+    test('attemptPlaceShip returns false if there is no room', () => {
+        expect(testBoard.attemptPlaceShip(testBoard.cells[9], 4)).toBe(false);
+    });
+
     test('Ship gets placed horizontally on coordinates if there is room: cells become occupied', () => {
         testBoard.attemptPlaceShip(testBoard.cells[6], 4);
-        let occupiedCells;
+        let testedCells = [];
         for(let i = 6; i < 10; i++) {
-            testBoard.cells[i].occupied = true;
+            testedCells.push(testBoard.cells[i]);
         }
-        expect(occupiedCells.every(cell => cell.occupied = true)).toBe(true);
+        expect(testedCells.every(cell => cell.occupied === true)).toBe(true);
     });
 
     test('Successfully placed ship is stored in an array', () => {
