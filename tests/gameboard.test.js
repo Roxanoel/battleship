@@ -20,10 +20,51 @@ describe('Gameboard functions', () => {
         expect(testBoard.cells[0].occupied).toBe(false);
     });
 
-    test('Function tests whether a boat will fit horizontally based on size', () => {
+    test('Function tests whether a ship will fit horizontally based on size', () => {
         expect(testBoard.boatFits(testBoard.cells[6], 4)).toBe(true);
     });
-    test('Boat will not fit horizontally if there is not enough space', () => {
+    test('Ship will not fit horizontally if there is not enough space', () => {
         expect(testBoard.boatFits(testBoard.cells[9], 4)).toBe(false);
     });
+
+    test('Ship gets placed horizontally on coordinates if there is room: cells become occupied', () => {
+        testBoard.attemptPlaceShip(testBoard.cells[6], 4);
+        let occupiedCells;
+        for(let i = 6; i < 10; i++) {
+            testBoard.cells[i].occupied = true;
+        }
+        expect(occupiedCells.every(cell => cell.occupied = true)).toBe(true);
+    });
+
+    test('Successfully placed ship is stored in an array', () => {
+        testBoard.attemptPlaceShip(testBoard.cells[6], 4);
+        expect(testBoard.ships.length).toBe(1);
+    });
+
+    test('Ship will not fit if an occupied cell is in the way', () => {
+        testBoard.attemptPlaceShip(testBoard.cells[6], 4);
+        testBoard.attemptPlaceShip(testBoard.cells[5], 4);
+
+        expect(testBoard.ships.length).toBe(1);
+    });
+
+    test('Ship does not get placed when no room: no change', () => {
+        testBoard.attemptPlaceShip(testBoard.cells[9], 4);
+        expect(testBoard.ships.length).toBe(0);
+    });
+
+    test('Each cell has an "attempted" property which is initialized as false', () => {
+        expect(testBoard.cells.every(cell => cell.attempted === false))
+        .toBe(true);
+    });
+
+    test('Attempting an attack marks the targeted cell as attempted', () => {
+        testBoard.receiveAttack(0);
+        expect(testBoard.cells[0].attempted).toBe(true);
+    });
+
+    test('receiveAttack returns false if the targeted cell was already attempted', () => {
+        testBoard.receiveAttack(0);
+        expect(testBoard.receiveAttack(0)).toBe(false);
+    })
 });

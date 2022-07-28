@@ -34,4 +34,6 @@ describe('ship properties and functions', () => {
         }
         expect(testShip.isSunk()).toBe(true);
     });
+
+    // MIGHT NEED A REFACTOR TO INCLUDE COORDINATES; HITS WILL BE HANDLED DIFFERENTLY
 });
