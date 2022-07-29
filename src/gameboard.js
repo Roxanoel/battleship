@@ -9,23 +9,33 @@ function Gameboard() {
         cells,
         ships: [],
         boatFits(position, size, orientation) {
-            // Horizontal fit: col index at start + size should be less than final col index
-            if (!(position.y + (size -1) <= 9)) return false;
-            // Check if any cell in the way is occupied 
-            for(let i = position.y; i < position.y + size; i+=1) {
-                if (this.cells[i].occupied === true) return false;
+            if (orientation === 'h') {
+                // Horizontal fit: col index at start + size should be less than final col index
+                if (!(position.y + (size -1) <= 9)) return false;
+
+                // Check if any cell in the way is occupied (HORIZ)
+                for(let i = position.y; i < position.y + size; i+=1) {
+                    if (this.cells[i].occupied === true) return false;
+                }
+                // Otherwise: 
+                return true;
             }
-            // Otherwise: 
-            return true;
+            else if (orientation === 'v') {
+
+            }
+            throw new Error('Orientation value invalid. Format = "h" or "v"');
+            
         },
         attemptPlaceShip(position, size, orientation) {
             // Checks if ship fits; if not, early return.
-            if (this.boatFits(position, size) === false) 
+            if (this.boatFits(position, size, orientation) === false) 
             return false;
             
             // Occupy the right cells, currently only horiz
             for(let i = position.y; i < position.y + size; i+=1) {
-                this.cells[i].occupyCell();  // Doesn't work for rows other than 1st
+                // Reconstitutes index from position
+                const index = convertCoordinatesToIndex(position.x, i);
+                this.cells[index].occupyCell();  // Doesn't work for rows other than 1st
             }
             // Store ship in array
             this.ships.push(Ship(4));
