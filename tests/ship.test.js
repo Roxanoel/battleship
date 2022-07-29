@@ -5,7 +5,7 @@ describe('ship properties and functions', () => {
     let testShip;
 
     beforeEach(() => {
-        testShip = Ship(4);
+        testShip = Ship([10, 11, 12, 13]);
     })
 
     // Tests
@@ -15,25 +15,24 @@ describe('ship properties and functions', () => {
     });
 
     test('Hits array initializes correctly', () => {
-        expect(testShip.hits).toStrictEqual([false, false, false, false]);
+        expect(testShip.hits).toStrictEqual([]);
     });
     
     test('Ship correctly registers hit', () => {
-        testShip.hit(2);
-        expect(testShip.hits[2]).toBe(true);
+        testShip.hit(12);
+        expect(testShip.hits).toStrictEqual([12]);
     });
 
     test('Ship is not sunk when it has un-hit positions', () => {
-        testShip.hit(2);
+        testShip.hit(12);
         expect(testShip.isSunk()).toBe(false);
     }); 
 
     test('Ship counts as sunk when all positions are hit', () => {
-        for (let i = 0; i < testShip.hits.length; i++) {
-            testShip.hit(i);
+        for (let i = 0; i < testShip.length; i++) {
+            testShip.hit(testShip.positionIndices[i]);
         }
         expect(testShip.isSunk()).toBe(true);
     });
 
-    // MIGHT NEED A REFACTOR TO INCLUDE COORDINATES; HITS WILL BE HANDLED DIFFERENTLY
 });
