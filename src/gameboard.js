@@ -1,4 +1,5 @@
 import Ship from "./ship";
+import convertCoordinatesToIndex from "./utils";
 
 /* eslint-disable no-use-before-define */
 function Gameboard() {
