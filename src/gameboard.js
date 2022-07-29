@@ -78,13 +78,25 @@ function Gameboard() {
         },
         receiveAttack(position) {
             // Early returns if this position has already been targeted.
-            if (position.attempted === true) return false;
+            if (position.attempted === true) return 'already attempted';
             position.markAsAttempted();
-            this.checkForHit(position);
-            return true;
+            this.checkForHit(cells.indexOf(position));
         },
-        checkForHit(position) {
-
+        checkForHit(positionIndex) {
+            // Checks if there is a ship at that position
+            for (let i = 0; i < this.ships.length; i+=1) {
+                // Tries to find a match among each ship's positions
+                for(let j = 0; j < this.ships[i].positions.length; j+=1) {
+                    if (this.ships[i].positions[j] === positionIndex) {
+                        // Make ship take the hit
+                        this.ships[i].hit(positionIndex);
+                        // Return true
+                        return true;
+                    }
+                }
+            }
+            // If no hit was registered
+            return false;
         }
     }
 }

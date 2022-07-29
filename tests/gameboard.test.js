@@ -107,9 +107,6 @@ describe('Ship placement', () => {
 });
 
 describe('Attacking cells', () => {
-    beforeEach(() => {
-        testBoard.attemptPlaceShip(testBoard.cells[0], 4, 'h');
-    });
 
     test('Attempting an attack marks the targeted cell as attempted', () => {
         testBoard.receiveAttack(testBoard.cells[0]);
@@ -122,7 +119,9 @@ describe('Attacking cells', () => {
     });
     
     test('receiveAttack marks ship as hit when targeted position was a hit', () => {
+        testBoard.attemptPlaceShip(testBoard.cells[0], 4, 'h');
         testBoard.receiveAttack(testBoard.cells[0]);
+        console.log(testBoard.ships);
         expect(testBoard.ships[0].hits).toStrictEqual([0]);
     });
 });
