@@ -111,6 +111,9 @@ function Gameboard() {
         misses.push(positionIndex);
         return false;
     };
+    function gameLost() {
+        return ships.every(ship => ship.isSunk());
+    }
 
     // PUBLIC
     return {
@@ -119,6 +122,7 @@ function Gameboard() {
         getMisses,
         attemptPlaceShip,
         receiveAttack,
+        gameLost,
     }
 
 }

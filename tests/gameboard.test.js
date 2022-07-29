@@ -167,7 +167,7 @@ describe('Game lost condition', () => {
 
     test('gameLost returns true when all ships are sunk', () => {
         testBoard.receiveAttack(testBoard.getCells()[0]);
-        testBoard.receiveAttach(testBoard.getCells()[1]);
+        testBoard.receiveAttack(testBoard.getCells()[1]);
         expect(testBoard.gameLost()).toBe(true);
     });
 });
