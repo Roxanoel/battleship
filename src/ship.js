@@ -1,23 +1,19 @@
 /* eslint-disable no-use-before-define */
-function Ship(length) {
+function Ship(positions) {
     return {
-        length,
-        hits: initializeHitArray(length),
-        hit(index) {
-            this.hits[index] = true;
+        positions,
+        length: positions.length,
+        hits: [],
+        hit(position) {
+            // Only adds hit to the array if it is not already present.
+            if (!(this.hits.includes(position)))
+            this.hits.push(position);
         },
         isSunk() {
-            return(this.hits.every(elem => elem === true));
+            return(this.hits.length === this.length);
         },
     }
 }
 
-function initializeHitArray(length) {
-    const hitArray = [];
-    for(let i = 0; i < length; i+=1) {
-        hitArray.push(false);
-    }
-    return hitArray;
-}
 
 export default Ship;
