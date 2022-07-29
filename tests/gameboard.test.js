@@ -59,11 +59,6 @@ describe('Ship placement', () => {
         expect(testedCells.every(cell => cell.occupied === true)).toBe(true);
     })
 
-    test('Successfully placed horizontal ship is stored in an array', () => {
-        testBoard.attemptPlaceShip(testBoard.cells[6], 4, 'h');
-        expect(testBoard.ships.length).toBe(1);
-    });
-
     test('Horizontal ship will not fit if an occupied cell is in the way', () => {
         testBoard.attemptPlaceShip(testBoard.cells[6], 4, 'h');
         testBoard.attemptPlaceShip(testBoard.cells[5], 4, 'h');
@@ -97,11 +92,6 @@ describe('Ship placement', () => {
         expect(testedCells.every(cell => cell.occupied === true)).toBe(true);
     });
 
-    test('Successfully placed vertical ship is stored in an array', () => {
-        testBoard.attemptPlaceShip(testBoard.cells[6], 4, 'v');
-        expect(testBoard.ships.length).toBe(1);
-    });
-
     test('Vertical ship will not fit if an occupied cell is in the way', () => {
         testBoard.attemptPlaceShip(testBoard.cells[0], 4, 'v');
         testBoard.attemptPlaceShip(testBoard.cells[10], 4, 'v');
@@ -126,5 +116,23 @@ describe('Attacking cells', () => {
     test('receiveAttack returns false if the targeted cell was already attempted', () => {
         testBoard.receiveAttack(testBoard.cells[0]);
         expect(testBoard.receiveAttack(testBoard.cells[0])).toBe(false);
+    })
+});
+
+describe('Storing ship data', () => {
+
+    test('Successfully placed vertical ship is stored in an array', () => {
+        testBoard.attemptPlaceShip(testBoard.cells[6], 4, 'v');
+        expect(testBoard.ships.length).toBe(1);
+    });
+
+    test('Successfully placed horizontal ship is stored in an array', () => {
+        testBoard.attemptPlaceShip(testBoard.cells[6], 4, 'h');
+        expect(testBoard.ships.length).toBe(1);
+    });
+
+    test('Ship coordinates are stored correctly', () => {
+        testBoard.attemptPlaceShip(testBoard.cells[6], 4, 'h');
+        expect(testBoard.ships[0].positions).toStrictEqual([6, 7, 8, 9]);
     })
 });
