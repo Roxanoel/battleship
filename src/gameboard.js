@@ -23,7 +23,7 @@ function Gameboard() {
             
             // Intended to work for horizontal only rn, a bit brute force, will absolutely need refactor to work with vertical
             for(let i = position.y; i < position.y + size; i+=1) {
-                this.cells[i].occupyCell();
+                this.cells[i].occupyCell();  // Doesn't work for rows other than 1st
             }
             // Store ship in array
             this.ships.push(Ship(4));
