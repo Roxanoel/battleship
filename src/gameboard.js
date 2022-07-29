@@ -7,6 +7,18 @@ function Gameboard() {
     const ships = [];
     const misses = [];
 
+    function getCells() {
+        return cells;
+    }
+
+    function getShips() {
+        return ships;
+    }
+
+    function getMisses() {
+        return misses;
+    }
+
     function shipFits(position, size, orientation) {
         if (orientation === 'h') {
             // Horizontal fit: col index at start + size should be less than final col index
@@ -102,9 +114,9 @@ function Gameboard() {
 
     // PUBLIC
     return {
-        cells,
-        ships,
-        misses,
+        getCells,
+        getShips,
+        getMisses,
         attemptPlaceShip,
         receiveAttack,
     }
