@@ -121,8 +121,12 @@ describe('Attacking cells', () => {
     test('receiveAttack marks ship as hit when targeted position was a hit', () => {
         testBoard.attemptPlaceShip(testBoard.cells[0], 4, 'h');
         testBoard.receiveAttack(testBoard.cells[0]);
-        console.log(testBoard.ships);
         expect(testBoard.ships[0].hits).toStrictEqual([0]);
+    });
+
+    test('checkForHit returns false when there was no hit', () => {
+        testBoard.attemptPlaceShip(testBoard.cells[0], 4, 'h');
+        expect(testBoard.checkForHit(testBoard.cells[10])).toBe(false);
     });
 });
 
