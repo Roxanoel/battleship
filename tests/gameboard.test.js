@@ -107,16 +107,24 @@ describe('Ship placement', () => {
 });
 
 describe('Attacking cells', () => {
+    beforeEach(() => {
+        testBoard.attemptPlaceShip(testBoard.cells[0], 4, 'h');
+    });
 
     test('Attempting an attack marks the targeted cell as attempted', () => {
         testBoard.receiveAttack(testBoard.cells[0]);
         expect(testBoard.cells[0].attempted).toBe(true);
     });
 
-    test('receiveAttack returns false if the targeted cell was already attempted', () => {
+    test('receiveAttack returns "already attempted" if the targeted cell was already attempted', () => {
         testBoard.receiveAttack(testBoard.cells[0]);
-        expect(testBoard.receiveAttack(testBoard.cells[0])).toBe(false);
-    })
+        expect(testBoard.receiveAttack(testBoard.cells[0])).toBe('already attempted');
+    });
+    
+    test('receiveAttack marks ship as hit when targeted position was a hit', () => {
+        testBoard.receiveAttack(testBoard.cells[0]);
+        expect(testBoard.ships[0].hits).toStrictEqual([0]);
+    });
 });
 
 describe('Storing ship data', () => {

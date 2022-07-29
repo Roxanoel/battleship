@@ -77,10 +77,15 @@ function Gameboard() {
             throw new Error('Orientation value invalid. Format = "h" or "v"');
         },
         receiveAttack(position) {
+            // Early returns if this position has already been targeted.
             if (position.attempted === true) return false;
             position.markAsAttempted();
+            this.checkForHit(position);
             return true;
         },
+        checkForHit(position) {
+
+        }
     }
 }
 
