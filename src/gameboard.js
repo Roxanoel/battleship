@@ -5,100 +5,108 @@ import convertCoordinatesToIndex from "./utils";
 function Gameboard() {
     const cells = generateCells(); 
 
+    const ships = [];
+
+    function shipFits(position, size, orientation) {
+        if (orientation === 'h') {
+            // Horizontal fit: col index at start + size should be less than final col index
+            if (!(position.y + (size -1) <= 9)) return false;
+
+            // Check if any cell in the way is occupied
+            for(let i = position.y; i < position.y + size; i+=1) {
+                const index = convertCoordinatesToIndex(position.x, i);
+                if (cells[index].occupied === true) return false;
+            }
+            // Otherwise: 
+            return true;
+        }
+        else if (orientation === 'v') {
+            // Check for board overflow at the bottom.
+            if((position.x + (size -1) > 9)) return false;
+
+            // Check if any cell in the way is occupied
+            for(let i = position.x; i < position.x + size; i+=1) {
+                const index = convertCoordinatesToIndex(i, position.y);
+                if (cells[index].occupied === true) return false;
+            }
+
+            // Otherwise: 
+            return true;
+        }
+        // Error is only thrown if orientation is neither h nor v
+        throw new Error('Orientation value invalid. Format = "h" or "v"');
+        
+    };
+    function attemptPlaceShip(position, size, orientation) {
+        // Checks if ship fits; if not, early return.
+        if (shipFits(position, size, orientation) === false) 
+        return false;
+
+        // For ship constructor
+        let cellIndices = [];
+        
+        if (orientation === 'h') {
+            // Occupy the right cells
+            for(let i = position.y; i < position.y + size; i+=1) {
+                // Reconstitutes index from position
+                const index = convertCoordinatesToIndex(position.x, i);
+                cells[index].occupyCell(); 
+                cellIndices.push(index);
+            }
+            // Store ship in array
+            ships.push(Ship(cellIndices));
+
+            // Indicates success
+            return true;
+        } else if (orientation === 'v') {
+            // Occupy the right cells
+            for(let i = position.x; i < position.x + size; i+=1) {
+                // Reconstitutes index from position
+                const index = convertCoordinatesToIndex(i, position.y);
+                cells[index].occupyCell(); 
+                cellIndices.push(index);
+            }
+            // Store ship in array
+            ships.push(Ship(cellIndices));
+
+            // Indicates success
+            return true;
+        }
+        // Error is only thrown if orientation is neither h nor v
+        throw new Error('Orientation value invalid. Format = "h" or "v"');
+    };
+
+    function receiveAttack(position) {
+        // Early returns if this position has already been targeted.
+        if (position.attempted === true) return 'already attempted';
+        position.markAsAttempted();
+        checkForHit(cells.indexOf(position));
+    };
+    function checkForHit(positionIndex) {
+        // Checks if there is a ship at that position
+        for (let i = 0; i < ships.length; i+=1) {
+            // Tries to find a match among each ship's positions
+            for(let j = 0; j < ships[i].positions.length; j+=1) {
+                if (ships[i].positions[j] === positionIndex) {
+                    // Make ship take the hit
+                    ships[i].hit(positionIndex);
+                    // Return true
+                    return true;
+                }
+            }
+        }
+        // If no hit was registered
+        return false;
+    };
+
+    // PUBLIC
     return {
         cells,
-        ships: [],
-        shipFits(position, size, orientation) {
-            if (orientation === 'h') {
-                // Horizontal fit: col index at start + size should be less than final col index
-                if (!(position.y + (size -1) <= 9)) return false;
-
-                // Check if any cell in the way is occupied
-                for(let i = position.y; i < position.y + size; i+=1) {
-                    const index = convertCoordinatesToIndex(position.x, i);
-                    if (this.cells[index].occupied === true) return false;
-                }
-                // Otherwise: 
-                return true;
-            }
-            else if (orientation === 'v') {
-                // Check for board overflow at the bottom.
-                if((position.x + (size -1) > 9)) return false;
-
-                // Check if any cell in the way is occupied
-                for(let i = position.x; i < position.x + size; i+=1) {
-                    const index = convertCoordinatesToIndex(i, position.y);
-                    if (this.cells[index].occupied === true) return false;
-                }
-
-                // Otherwise: 
-                return true;
-            }
-            // Error is only thrown if orientation is neither h nor v
-            throw new Error('Orientation value invalid. Format = "h" or "v"');
-            
-        },
-        attemptPlaceShip(position, size, orientation) {
-            // Checks if ship fits; if not, early return.
-            if (this.shipFits(position, size, orientation) === false) 
-            return false;
-
-            // For ship constructor
-            let cellIndices = [];
-            
-            if (orientation === 'h') {
-                // Occupy the right cells
-                for(let i = position.y; i < position.y + size; i+=1) {
-                    // Reconstitutes index from position
-                    const index = convertCoordinatesToIndex(position.x, i);
-                    this.cells[index].occupyCell(); 
-                    cellIndices.push(index);
-                }
-                // Store ship in array
-                this.ships.push(Ship(cellIndices));
-
-                // Indicates success
-                return true;
-            } else if (orientation === 'v') {
-                // Occupy the right cells
-                for(let i = position.x; i < position.x + size; i+=1) {
-                    // Reconstitutes index from position
-                    const index = convertCoordinatesToIndex(i, position.y);
-                    this.cells[index].occupyCell(); 
-                    cellIndices.push(index);
-                }
-                // Store ship in array
-                this.ships.push(Ship(cellIndices));
-
-                // Indicates success
-                return true;
-            }
-            // Error is only thrown if orientation is neither h nor v
-            throw new Error('Orientation value invalid. Format = "h" or "v"');
-        },
-        receiveAttack(position) {
-            // Early returns if this position has already been targeted.
-            if (position.attempted === true) return 'already attempted';
-            position.markAsAttempted();
-            this.checkForHit(cells.indexOf(position));
-        },
-        checkForHit(positionIndex) {
-            // Checks if there is a ship at that position
-            for (let i = 0; i < this.ships.length; i+=1) {
-                // Tries to find a match among each ship's positions
-                for(let j = 0; j < this.ships[i].positions.length; j+=1) {
-                    if (this.ships[i].positions[j] === positionIndex) {
-                        // Make ship take the hit
-                        this.ships[i].hit(positionIndex);
-                        // Return true
-                        return true;
-                    }
-                }
-            }
-            // If no hit was registered
-            return false;
-        }
+        ships,
+        attemptPlaceShip,
+        receiveAttack,
     }
+
 }
 
 function generateCells() {
