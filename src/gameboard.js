@@ -42,6 +42,9 @@ function Gameboard() {
             // Checks if ship fits; if not, early return.
             if (this.shipFits(position, size, orientation) === false) 
             return false;
+
+            // For ship constructor
+            let cellIndices = [];
             
             if (orientation === 'h') {
                 // Occupy the right cells
@@ -49,9 +52,10 @@ function Gameboard() {
                     // Reconstitutes index from position
                     const index = convertCoordinatesToIndex(position.x, i);
                     this.cells[index].occupyCell(); 
+                    cellIndices.push(index);
                 }
                 // Store ship in array
-                this.ships.push(Ship(size));
+                this.ships.push(Ship(cellIndices));
 
                 // Indicates success
                 return true;
@@ -61,9 +65,10 @@ function Gameboard() {
                     // Reconstitutes index from position
                     const index = convertCoordinatesToIndex(i, position.y);
                     this.cells[index].occupyCell(); 
+                    cellIndices.push(index);
                 }
                 // Store ship in array
-                this.ships.push(Ship(size));
+                this.ships.push(Ship(cellIndices));
 
                 // Indicates success
                 return true;

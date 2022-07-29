@@ -131,8 +131,13 @@ describe('Storing ship data', () => {
         expect(testBoard.ships.length).toBe(1);
     });
 
-    test('Ship coordinates are stored correctly', () => {
+    test('Horizontal ship coordinates are stored correctly', () => {
         testBoard.attemptPlaceShip(testBoard.cells[6], 4, 'h');
         expect(testBoard.ships[0].positions).toStrictEqual([6, 7, 8, 9]);
-    })
+    });
+
+    test('Vertical ship coordinates are stored correctly', () => {
+        testBoard.attemptPlaceShip(testBoard.cells[6], 4, 'v');
+        expect(testBoard.ships[0].positions).toStrictEqual([6, 16, 26, 36]);
+    });
 });
