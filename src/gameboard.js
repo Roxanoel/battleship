@@ -13,16 +13,28 @@ function Gameboard() {
                 // Horizontal fit: col index at start + size should be less than final col index
                 if (!(position.y + (size -1) <= 9)) return false;
 
-                // Check if any cell in the way is occupied (HORIZ)
+                // Check if any cell in the way is occupied
                 for(let i = position.y; i < position.y + size; i+=1) {
-                    if (this.cells[i].occupied === true) return false;
+                    const index = convertCoordinatesToIndex(position.x, i);
+                    if (this.cells[index].occupied === true) return false;
                 }
                 // Otherwise: 
                 return true;
             }
             else if (orientation === 'v') {
+                // Check for board overflow at the bottom.
+                if((position.x + (size -1) > 9)) return false;
 
+                // Check if any cell in the way is occupied
+                for(let i = position.x; i < position.x + size; i+=1) {
+                    const index = convertCoordinatesToIndex(i, position.y);
+                    if (this.cells[index].occupied === true) return false;
+                }
+
+                // Otherwise: 
+                return true;
             }
+            // Error is only thrown if orientation is neither h nor v
             throw new Error('Orientation value invalid. Format = "h" or "v"');
             
         },
@@ -31,16 +43,33 @@ function Gameboard() {
             if (this.boatFits(position, size, orientation) === false) 
             return false;
             
-            // Occupy the right cells, currently only horiz
-            for(let i = position.y; i < position.y + size; i+=1) {
-                // Reconstitutes index from position
-                const index = convertCoordinatesToIndex(position.x, i);
-                this.cells[index].occupyCell();  // Doesn't work for rows other than 1st
-            }
-            // Store ship in array
-            this.ships.push(Ship(4));
+            if (orientation === 'h') {
+                // Occupy the right cells
+                for(let i = position.y; i < position.y + size; i+=1) {
+                    // Reconstitutes index from position
+                    const index = convertCoordinatesToIndex(position.x, i);
+                    this.cells[index].occupyCell(); 
+                }
+                // Store ship in array
+                this.ships.push(Ship(size));
 
-            return true;
+                // Indicates success
+                return true;
+            } else if (orientation === 'v') {
+                // Occupy the right cells
+                for(let i = position.x; i < position.x + size; i+=1) {
+                    // Reconstitutes index from position
+                    const index = convertCoordinatesToIndex(i, position.y);
+                    this.cells[index].occupyCell(); 
+                }
+                // Store ship in array
+                this.ships.push(Ship(size));
+
+                // Indicates success
+                return true;
+            }
+            // Error is only thrown if orientation is neither h nor v
+            throw new Error('Orientation value invalid. Format = "h" or "v"');
         },
         receiveAttack(position) {
             if (position.attempted === true) return false;
