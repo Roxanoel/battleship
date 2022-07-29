@@ -1,11 +1,12 @@
 import Gameboard from '../src/gameboard';
 
-describe('Gameboard functions', () => {
-    let testBoard;
+let testBoard;
 
     beforeEach(() => {
         testBoard = Gameboard();
-    })
+    });
+
+describe('Gameboard generation', () => {
 
     test('A 100-cell board is created', () => {
         expect(testBoard.cells.length).toBe(100);
@@ -19,6 +20,15 @@ describe('Gameboard functions', () => {
     test('Each cell is an object with an initially "false" occupied condition', () => {
         expect(testBoard.cells[0].occupied).toBe(false);
     });
+    
+    test('Each cell has an "attempted" property which is initialized as false', () => {
+        expect(testBoard.cells.every(cell => cell.attempted === false))
+        .toBe(true);
+    });
+
+});
+
+describe('Ship placement', () => {
 
     test('Function tests whether a ship will fit horizontally based on size', () => {
         expect(testBoard.boatFits(testBoard.cells[6], 4)).toBe(true);
@@ -57,10 +67,9 @@ describe('Gameboard functions', () => {
         expect(testBoard.ships.length).toBe(0);
     });
 
-    test('Each cell has an "attempted" property which is initialized as false', () => {
-        expect(testBoard.cells.every(cell => cell.attempted === false))
-        .toBe(true);
-    });
+});
+
+describe('Attacking cells', () => {
 
     test('Attempting an attack marks the targeted cell as attempted', () => {
         testBoard.receiveAttack(testBoard.cells[0]);
