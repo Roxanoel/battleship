@@ -126,11 +126,11 @@ describe('Attacking cells', () => {
         expect(testBoard.ships[0].hits).toStrictEqual([0]);
     });
 
-    // Check for hit was hidden
-    /* test('checkForHit returns false when there was no hit', () => {
+    test('No hit adds missed attempt to array', () => {
         testBoard.attemptPlaceShip(testBoard.cells[0], 4, 'h');
-        expect(testBoard.checkForHit(testBoard.cells[10])).toBe(false);
-    }); */
+        testBoard.receiveAttack(testBoard.cells[10]);
+        expect(testBoard.misses).toStrictEqual([10]);
+    }); 
 });
 
 describe('Storing ship data', () => {

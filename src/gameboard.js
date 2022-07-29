@@ -4,8 +4,8 @@ import convertCoordinatesToIndex from "./utils";
 /* eslint-disable no-use-before-define */
 function Gameboard() {
     const cells = generateCells(); 
-
     const ships = [];
+    const misses = [];
 
     function shipFits(position, size, orientation) {
         if (orientation === 'h') {
@@ -96,6 +96,7 @@ function Gameboard() {
             }
         }
         // If no hit was registered
+        misses.push(positionIndex);
         return false;
     };
 
@@ -103,6 +104,7 @@ function Gameboard() {
     return {
         cells,
         ships,
+        misses,
         attemptPlaceShip,
         receiveAttack,
     }
