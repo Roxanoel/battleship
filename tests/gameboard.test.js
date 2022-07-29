@@ -155,3 +155,19 @@ describe('Storing ship data', () => {
         expect(testBoard.getShips()[0].positions).toStrictEqual([6, 16, 26, 36]);
     });
 });
+
+describe('Game lost condition', () => {
+    beforeEach(() => {
+        testBoard.attemptPlaceShip(testBoard.getCells()[0], 2, 'h');
+    });
+
+    test('gameLost returns false when there is an unsunk ship', () => {
+        expect(testBoard.gameLost()).toBe(false);
+    });
+
+    test('gameLost returns true when all ships are sunk', () => {
+        testBoard.receiveAttack(testBoard.getCells()[0]);
+        testBoard.receiveAttach(testBoard.getCells()[1]);
+        expect(testBoard.gameLost()).toBe(true);
+    });
+});
