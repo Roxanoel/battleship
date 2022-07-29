@@ -9,9 +9,9 @@ function Gameboard() {
         ships: [],
         boatFits(position, size) {
             // Horizontal fit: col index at start + size should be less than final col index
-            if (!(position.y + (size -1) <= 9)) return false;
+            if (!(position.x + (size -1) <= 9)) return false;
             // Check if any cell in the way is occupied 
-            for(let i = position.y; i < position.y + size; i+=1) {
+            for(let i = position.x; i < position.x + size; i+=1) {
                 if (this.cells[i].occupied === true) return false;
             }
             // Otherwise: 
@@ -22,7 +22,7 @@ function Gameboard() {
             return false;
             
             // Intended to work for horizontal only rn, a bit brute force, will absolutely need refactor to work with vertical
-            for(let i = position.y; i < position.y + size; i+=1) {
+            for(let i = position.x; i < position.x + size; i+=1) {
                 this.cells[i].occupyCell();  // Doesn't work for rows other than 1st
             }
             // Store ship in array
@@ -41,14 +41,14 @@ function Gameboard() {
 function generateCells() {
     const cells = [];
 
-    // Creating each row
+    // Creating each row (y)
     for(let i = 0; i < 10; i+=1) {
-        // Creating each col    
+        // Creating each col (x)    
         for(let j = 0; j< 10; j+=1) {
             // create the cell with the right dataset elements. 
             const cell = {
-                x: i,
-                y: j,
+                x: j,
+                y: i,
                 occupied: false,
                 attempted: false,
                 occupyCell() {

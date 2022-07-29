@@ -51,7 +51,12 @@ describe('Ship placement', () => {
     });
 
     test('Horizontal ship gets placed correctly if on row other than 1', () => {
-        
+        testBoard.attemptPlaceShip(testBoard.cells[16], 4, 'h');
+        let testedCells = [];
+        for(let i = 16; i < 20; i++) {
+            testedCells.push(testBoard.cells[i]);
+        }
+        expect(testedCells.every(cell => cell.occupied === true)).toBe(true);
     })
 
     test('Successfully placed horizontal ship is stored in an array', () => {
