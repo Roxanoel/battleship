@@ -31,10 +31,10 @@ describe('Gameboard generation', () => {
 describe('Ship placement', () => {
 
     test('Function tests whether a ship will fit horizontally based on size', () => {
-        expect(testBoard.boatFits(testBoard.cells[6], 4, 'h')).toBe(true);
+        expect(testBoard.shipFits(testBoard.cells[6], 4, 'h')).toBe(true);
     });
     test('Ship will not fit horizontally if there is not enough space', () => {
-        expect(testBoard.boatFits(testBoard.cells[9], 4,'h')).toBe(false);
+        expect(testBoard.shipFits(testBoard.cells[9], 4,'h')).toBe(false);
     });
 
     test('attemptPlaceShip returns false if there is no room (horizontally)', () => {
@@ -78,10 +78,10 @@ describe('Ship placement', () => {
 
     // VERTICAL 
     test('Function tests whether a ship will fit vertically based on size', () => {
-        expect(testBoard.boatFits(testBoard.cells[0], 4, 'v')).toBe(true);
+        expect(testBoard.shipFits(testBoard.cells[0], 4, 'v')).toBe(true);
     });
     test('Ship will not fit vertically if there is not enough space', () => {
-        expect(testBoard.boatFits(testBoard.cells[90], 4, 'v')).toBe(false);
+        expect(testBoard.shipFits(testBoard.cells[90], 4, 'v')).toBe(false);
     });
 
     test('attemptPlaceShip returns false if there is no room (vertically)', () => {
@@ -127,8 +127,4 @@ describe('Attacking cells', () => {
         testBoard.receiveAttack(testBoard.cells[0]);
         expect(testBoard.receiveAttack(testBoard.cells[0])).toBe(false);
     })
-});
-
-describe('Coordinates to Index', () => {
-
 });

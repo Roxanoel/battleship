@@ -8,7 +8,7 @@ function Gameboard() {
     return {
         cells,
         ships: [],
-        boatFits(position, size, orientation) {
+        shipFits(position, size, orientation) {
             if (orientation === 'h') {
                 // Horizontal fit: col index at start + size should be less than final col index
                 if (!(position.y + (size -1) <= 9)) return false;
@@ -40,7 +40,7 @@ function Gameboard() {
         },
         attemptPlaceShip(position, size, orientation) {
             // Checks if ship fits; if not, early return.
-            if (this.boatFits(position, size, orientation) === false) 
+            if (this.shipFits(position, size, orientation) === false) 
             return false;
             
             if (orientation === 'h') {
