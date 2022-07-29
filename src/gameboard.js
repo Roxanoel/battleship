@@ -7,7 +7,7 @@ function Gameboard() {
     return {
         cells,
         ships: [],
-        boatFits(position, size) {
+        boatFits(position, size, orientation) {
             // Horizontal fit: col index at start + size should be less than final col index
             if (!(position.y + (size -1) <= 9)) return false;
             // Check if any cell in the way is occupied 
@@ -17,11 +17,12 @@ function Gameboard() {
             // Otherwise: 
             return true;
         },
-        attemptPlaceShip(position, size) {
+        attemptPlaceShip(position, size, orientation) {
+            // Checks if ship fits; if not, early return.
             if (this.boatFits(position, size) === false) 
             return false;
             
-            // Intended to work for horizontal only rn, a bit brute force, will absolutely need refactor to work with vertical
+            // Occupy the right cells, currently only horiz
             for(let i = position.y; i < position.y + size; i+=1) {
                 this.cells[i].occupyCell();  // Doesn't work for rows other than 1st
             }

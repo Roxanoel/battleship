@@ -128,3 +128,7 @@ describe('Attacking cells', () => {
         expect(testBoard.receiveAttack(testBoard.cells[0])).toBe(false);
     })
 });
+
+describe('Coordinates to Index', () => {
+
+});
