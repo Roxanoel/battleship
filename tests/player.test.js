@@ -4,25 +4,20 @@ import Gameboard from '../src/gameboard';
 let player;
 
     beforeEach(() => {
-        player = Player();
+        player = Player('Name', Gameboard(), Gameboard() );
     });
 
 describe('Generic Player functions', () => {
     test('Player gets associated to their own game board', () => {
-        expect(player.getGameBoard()).toBeTruthy();
+        expect(player.getGameboard()).toBeTruthy();
     });
 
     test('Player gets a name property', () => {
-        expect(player.hasOwn('name')).toBe(true);
+        expect(player.hasOwnProperty('name')).toBe(true);
     });
 
     test('Player has reference to opponent board', () => {
-        expect(player.hasOwn('opponentBoard')).toBe(true);
-    });
-
-    test('Opponent board can be set after player init', () => {
-        player.SetOpponentBoard(Gameboard());
-        expect(player.opponentBoard).toBeTruthy();
+        expect(player.getOpponentBoard()).toBeTruthy();
     });
 });
 
