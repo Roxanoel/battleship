@@ -1,1 +1,1 @@
-import Gameboard from './gameboard';
+import Gameboard from './gameboard.js';

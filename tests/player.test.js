@@ -22,13 +22,16 @@ describe('Generic Player functions', () => {
 });
 
 describe('Playing a turn', () => {
-    beforeEach(() => {
-        player.SetOpponentBoard();
-    });
     test('playTurn throws error if no coords are passed in', () => {
-        expect(player.playTurn()).toThrow();
+        expect(() => { player.playTurn() }).toThrow();
     });
-    test('playTurn throws error if coords are out of bounds', () => {
-        expect(player.playTurn(11, 11)).toThrow();
+    test('playTurn throws error if x coord is out of bounds', () => {
+        expect(() => { player.playTurn(11, 0) }).toThrow();
+    });
+    test('playTurn throws error if y coord is out of bounds', () => {
+        expect(() => { player.playTurn(0, 11) }).toThrow();
+    });
+    test('playTurn throws error if both coords are out of bounds', () => {
+        expect(() => { player.playTurn(11, 11) }).toThrow();
     });
 });

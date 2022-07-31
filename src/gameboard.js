@@ -1,11 +1,38 @@
-import Ship from "./ship";
-import convertCoordinatesToIndex from "./utils";
+import Ship from "./ship.js";
+import convertCoordinatesToIndex from "./utils.js";
 
 /* eslint-disable no-use-before-define */
 function Gameboard() {
     const cells = generateCells(); 
     const ships = [];
     const misses = [];
+
+    function generateCells() {
+        const cells = [];
+    
+        // Creating each row
+        for(let i = 0; i < 10; i+=1) {
+            // Creating each col    
+            for(let j = 0; j< 10; j+=1) {
+                // create the cell with the right dataset elements. 
+                const cell = {
+                    x: i,
+                    y: j,
+                    occupied: false,
+                    attempted: false,
+                    occupyCell() {
+                        this.occupied = true;
+                    },
+                    markAsAttempted() {
+                        this.attempted = true;
+                    },
+                }
+                cells.push(cell);
+            }
+        }
+    
+        return cells;
+    }
 
     function getCells() {
         return cells;
@@ -125,33 +152,6 @@ function Gameboard() {
         gameLost,
     }
 
-}
-
-function generateCells() {
-    const cells = [];
-
-    // Creating each row
-    for(let i = 0; i < 10; i+=1) {
-        // Creating each col    
-        for(let j = 0; j< 10; j+=1) {
-            // create the cell with the right dataset elements. 
-            const cell = {
-                x: i,
-                y: j,
-                occupied: false,
-                attempted: false,
-                occupyCell() {
-                    this.occupied = true;
-                },
-                markAsAttempted() {
-                    this.attempted = true;
-                },
-            }
-            cells.push(cell);
-        }
-    }
-
-    return cells;
 }
 
 export default Gameboard;
