@@ -28,4 +28,8 @@ describe('Making a random legal move', () => {
         const selectedCell = opponentAI.getLegalMoves()[mockRandom()];
         expect(convertCoordinatesToIndex(selectedCell.x, selectedCell.y)).not.toBe(0);
     });
+
+    test('returnLegalMove returns coordinates of a random legal move', () => {
+        expect(opponentAI.getLegalMoveCoordinates(mockRandom)).toBe(0,0)
+    });
 });
