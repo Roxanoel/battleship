@@ -3,9 +3,10 @@ import OpponentAI from "../src/opponent-ai";
 import convertCoordinatesToIndex from "../src/utils";
 
 let opponentAI;
-const oppositeBoard = Gameboard();
+let oppositeBoard;
 
 beforeEach(() => {
+    oppositeBoard = Gameboard();
     opponentAI = OpponentAI(oppositeBoard);
 });
 
@@ -30,6 +31,6 @@ describe('Making a random legal move', () => {
     });
 
     test('returnLegalMove returns coordinates of a random legal move', () => {
-        expect(opponentAI.getLegalMoveCoordinates(mockRandom)).toBe(0,0)
+        expect(opponentAI.getLegalMoveCoordinates(mockRandom)).toStrictEqual({x:0, y:0});
     });
 });
