@@ -9,5 +9,5 @@ function getRandomIndex(arrayLength) {
 export default convertCoordinatesToIndex;
 
 export {
-
+    getRandomIndex,
 }

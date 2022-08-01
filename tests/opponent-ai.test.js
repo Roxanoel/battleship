@@ -2,9 +2,11 @@ import Gameboard from "../src/gameboard";
 import OpponentAI from "../src/opponent-ai";
 import convertCoordinatesToIndex from "../src/utils";
 
+let opponentAI;
+const oppositeBoard = Gameboard();
+
 beforeEach(() => {
-    const oppositeBoard = Gameboard();
-    const opponentAI = OpponentAI(oppositeBoard);
+    opponentAI = OpponentAI(oppositeBoard);
 });
 
 describe('Making a random legal move', () => {
