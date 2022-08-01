@@ -1,5 +1,3 @@
-import { getRandomIndex } from "./utils";
-
 function OpponentAI(oppositeBoard) {
     function getLegalMoves() {
         const allCells = oppositeBoard.getCells();
