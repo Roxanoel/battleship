@@ -16,8 +16,6 @@ function OpponentAI(oppositeBoard) {
     };
 
     return {
-        oppositeBoard,
-        getLegalMoves,
         getLegalMoveCoordinates,
     }
 };

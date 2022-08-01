@@ -14,8 +14,8 @@ describe('Making a random legal move', () => {
     function mockRandom() {
         return 0;
     }
-    
-    test('legalMoves returns array of currently unattempted cells on opposite board', () => {
+    // FUNCTIONS HIDDEN AFTER SUCCESFUL TESTING
+    /* test('legalMoves returns array of currently unattempted cells on opposite board', () => {
         expect(opponentAI.getLegalMoves()).toStrictEqual(opponentAI.oppositeBoard.getCells());
     });
 
@@ -28,7 +28,7 @@ describe('Making a random legal move', () => {
         oppositeBoard.receiveAttack(oppositeBoard.getCells()[0]); // Attacks 0,0 aka index 0
         const selectedCell = opponentAI.getLegalMoves()[mockRandom()];
         expect(convertCoordinatesToIndex(selectedCell.x, selectedCell.y)).not.toBe(0);
-    });
+    }); */
 
     test('returnLegalMove returns coordinates of a random legal move', () => {
         expect(opponentAI.getLegalMoveCoordinates(mockRandom)).toStrictEqual({x:0, y:0});
