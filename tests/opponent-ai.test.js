@@ -23,7 +23,7 @@ describe('Making a random legal move', () => {
 
     test('If a cell gets hit, it is not part of the legalMoves array: will not be hit twice', () => {
         oppositeBoard.receiveAttack(0); // Attacks 0,0 aka index 0
-        const selectedCell = opponentAI.getLegalMoves(0);
+        const selectedCell = opponentAI.getLegalMoves[mockRandom()];
         expect(convertCoordinatesToIndex(selectedCell.x, selectedCell.y)).not.toBe(0);
     });
 });
