@@ -46,14 +46,14 @@ function Gameboard() {
         return misses;
     }
 
-    function shipFits(position, size, orientation) {
+    function shipFits(startCell, size, orientation) {
         if (orientation === 'h') {
             // Horizontal fit: col index at start + size should be less than final col index
-            if (!(position.y + (size -1) <= 9)) return false;
+            if (!(startCell.y + (size -1) <= 9)) return false;
 
             // Check if any cell in the way is occupied
-            for(let i = position.y; i < position.y + size; i+=1) {
-                const index = convertCoordinatesToIndex(position.x, i);
+            for(let i = startCell.y; i < startCell.y + size; i+=1) {
+                const index = convertCoordinatesToIndex(startCell.x, i);
                 if (cells[index].occupied === true) return false;
             }
             // Otherwise: 
@@ -61,11 +61,11 @@ function Gameboard() {
         }
         else if (orientation === 'v') {
             // Check for board overflow at the bottom.
-            if((position.x + (size -1) > 9)) return false;
+            if((startCell.x + (size -1) > 9)) return false;
 
             // Check if any cell in the way is occupied
-            for(let i = position.x; i < position.x + size; i+=1) {
-                const index = convertCoordinatesToIndex(i, position.y);
+            for(let i = startCell.x; i < startCell.x + size; i+=1) {
+                const index = convertCoordinatesToIndex(i, startCell.y);
                 if (cells[index].occupied === true) return false;
             }
 
@@ -76,9 +76,9 @@ function Gameboard() {
         throw new Error('Orientation value invalid. Format = "h" or "v"');
         
     };
-    function attemptPlaceShip(position, size, orientation) {
+    function attemptPlaceShip(startCell, size, orientation) {
         // Checks if ship fits; if not, early return.
-        if (shipFits(position, size, orientation) === false) 
+        if (shipFits(startCell, size, orientation) === false) 
         return false;
 
         // For ship constructor
@@ -86,9 +86,9 @@ function Gameboard() {
         
         if (orientation === 'h') {
             // Occupy the right cells
-            for(let i = position.y; i < position.y + size; i+=1) {
+            for(let i = startCell.y; i < startCell.y + size; i+=1) {
                 // Reconstitutes index from position
-                const index = convertCoordinatesToIndex(position.x, i);
+                const index = convertCoordinatesToIndex(startCell.x, i);
                 cells[index].occupyCell(); 
                 cellIndices.push(index);
             }
@@ -99,9 +99,9 @@ function Gameboard() {
             return true;
         } else if (orientation === 'v') {
             // Occupy the right cells
-            for(let i = position.x; i < position.x + size; i+=1) {
+            for(let i = startCell.x; i < startCell.x + size; i+=1) {
                 // Reconstitutes index from position
-                const index = convertCoordinatesToIndex(i, position.y);
+                const index = convertCoordinatesToIndex(i, startCell.y);
                 cells[index].occupyCell(); 
                 cellIndices.push(index);
             }
@@ -115,27 +115,27 @@ function Gameboard() {
         throw new Error('Orientation value invalid. Format = "h" or "v"');
     };
 
-    function receiveAttack(position) {
+    function receiveAttack(cell) {
         // Early returns if this position has already been targeted.
-        if (position.attempted === true) return 'already attempted';
-        position.markAsAttempted();
-        checkForHit(cells.indexOf(position));
+        if (cell.attempted === true) return 'already attempted';
+        cell.markAsAttempted();
+        checkForHit(cells.indexOf(cell));
     };
-    function checkForHit(positionIndex) {
+    function checkForHit(cellIndex) {
         // Checks if there is a ship at that position
         for (let i = 0; i < ships.length; i+=1) {
             // Tries to find a match among each ship's positions
             for(let j = 0; j < ships[i].positions.length; j+=1) {
-                if (ships[i].positions[j] === positionIndex) {
+                if (ships[i].positions[j] === cellIndex) {
                     // Make ship take the hit
-                    ships[i].hit(positionIndex);
+                    ships[i].hit(cellIndex);
                     // Return true
                     return true;
                 }
             }
         }
         // If no hit was registered
-        misses.push(positionIndex);
+        misses.push(cellIndex);
         return false;
     };
     function gameLost() {
