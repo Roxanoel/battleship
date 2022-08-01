@@ -49,6 +49,22 @@ describe('Game functions', () => {
     test('Active player initialized as first player', () => {
         expect(gameManager.getActivePlayer()).toBe(gameManager.getPlayers()[0]);
     });
+
+    // Changing turn
+    test('nextTurn() changes the active player', () => {
+        gameManager.nextTurn();
+        expect(gameManager.getActivePlayer()).toBe(gameManager.getPlayers()[1]);
+    });
+});
+
+describe('Game state: playing a turn', () => {
+    beforeEach(() => {
+        gameManager.startGame('Name');
+    });
+
+    test('to be implemented', () => {
+
+    });
 });
 
 describe('Post-game functions', () => {

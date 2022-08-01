@@ -32,27 +32,32 @@ const GameManager = () => {
         activePlayer = players[0];
     };
 
+    function nextTurn() {
+        activePlayer = (activePlayer === players[0]) ? players[1] : players[0];
+    };
+
     function getCurrentState() {
         return currentState;
     };
 
     function getPlayers() {
         return players;
-    }
+    };
 
     function getBoards() {
         return boards;
-    }
+    };
 
     function getActivePlayer() {
         return activePlayer;
-    }
+    };
     return {
         getCurrentState,
         startGame,
         getPlayers,
         getBoards,
         getActivePlayer,
+        nextTurn,
     };
 };
 
