@@ -2,14 +2,13 @@ import GameManager from "../src/game-manager";
 import {jest} from "@jest/globals";
 
 const mockStartGame = jest.fn(x => x);
+let gameManager;
+    
+beforeEach(() => {
+    gameManager = GameManager();
+});
 
 describe('Pre-game functions', () => {
-    let gameManager;
-    
-    beforeEach(() => {
-        gameManager = GameManager();
-    });
-
     test('GameManager initialises at pre-game', () => {
         expect(gameManager.currentState).toBe('PREGAME');
     });
@@ -26,7 +25,7 @@ describe('Pre-game functions', () => {
 });
 
 describe('Game functions', () => {
-
+    
 });
 
 describe('Post-game functions', () => {
