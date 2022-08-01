@@ -76,7 +76,14 @@ function Gameboard() {
         throw new Error('Orientation value invalid. Format = "h" or "v"');
         
     };
-    function attemptPlaceShip(startCell, size, orientation) {
+
+    function getCellFromCoords(coords) {
+        return cells[convertCoordinatesToIndex(coords.x, coords.y)];
+    }
+    function attemptPlaceShip(startCellCoordinates, size, orientation) {
+        // Get cells from coords
+        const startCell = getCellFromCoords(startCellCoordinates);
+        
         // Checks if ship fits; if not, early return.
         if (shipFits(startCell, size, orientation) === false) 
         return false;
@@ -115,7 +122,10 @@ function Gameboard() {
         throw new Error('Orientation value invalid. Format = "h" or "v"');
     };
 
-    function receiveAttack(cell) {
+    function receiveAttack(cellCoordinates) {
+        // Get cell from coords
+        const cell = getCellFromCoords(cellCoordinates);
+        
         // Early returns if this position has already been targeted.
         if (cell.attempted === true) return 'already attempted';
         cell.markAsAttempted();
