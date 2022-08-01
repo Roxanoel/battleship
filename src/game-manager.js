@@ -7,7 +7,14 @@ const GameManager = () => {
         // Do nothing (for now) if name is not provided.
         if (playerName === '') return;
 
-        callbackFn();
+        // For testing
+        if (callbackFn) { 
+            callbackFn();
+            return;
+        } 
+
+        // Otherwise, default behaviour (will need a refactor after testing)
+        currentState = gameStates[1];
     };
 
     return {

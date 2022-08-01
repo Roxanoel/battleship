@@ -25,7 +25,30 @@ describe('Pre-game functions', () => {
 });
 
 describe('Game functions', () => {
-    
+    // Triggers transition to GAME manually
+    beforeEach(() => {
+        gameManager.startGame('Name');
+    });
+
+    test('Game starts', () => {
+        expect(gameManager.currentState).toBe('GAME');
+    });
+
+    test('Players get initialised', () => {
+        // use mock to see if constructors are called 
+        expect(gameManager.players.length).toBe(2)
+    });
+
+    test('Players get their own board + opponent board associated to them', () => {
+        expect(gameManager.players[0].getGameBoard()).toStrictEqual(gameManager.boards[0]);
+        expect(gameManager.players[0].getOpponentBoard()).toStrictEqual(gameManager.boards[1]);
+        expect(gameManager.players[1].getGameBoard()).toStrictEqual(gameManager.boards[1]);
+        expect(gameManager.players[1].getOpponentBoard()).toStrictEqual(gameManager.boards[0]);
+    });
+
+    test('Active player initialized as first player', () => {
+        expect(gameManager.activePlayer).toBe(gameManager.players[0]);
+    });
 });
 
 describe('Post-game functions', () => {
