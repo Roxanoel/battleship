@@ -62,8 +62,8 @@ describe('Game state: playing a turn', () => {
         gameManager.startGame('Name');
     });
 
-    test('to be implemented', () => {
-
+    test("handleCoordinates calls the active player's playTurn method", () => {
+        gameManager.handleCoordinates(0,0);
     });
 });
 
