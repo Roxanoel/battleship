@@ -1,5 +1,9 @@
-function Player(name, gameboard, opponentBoard) {
+import OpponentAI from "./opponent-ai";
 
+function Player(name, gameboard, opponentBoard) {
+    let ai;
+
+    if (name === 'Opponent') ai = OpponentAI(opponentBoard);
 
     function playTurn(x, y) {
         // Error moves 
@@ -17,6 +21,7 @@ function Player(name, gameboard, opponentBoard) {
         }
     return {
         name,
+        ai,
         getGameboard() { return gameboard },
         getOpponentBoard() {return opponentBoard},
         playTurn,

@@ -1,4 +1,5 @@
 import GameManager from "../src/game-manager";
+import OpponentAI from "../src/opponent-ai";
 import {jest} from "@jest/globals";
 
 const mockStartGame = jest.fn(x => x);
@@ -25,9 +26,10 @@ describe('Pre-game functions', () => {
 });
 
 describe('Game functions', () => {
-    // Triggers transition to GAME manually
+    // Triggers transition to GAME manually + removes ai
     beforeEach(() => {
         gameManager.getCurrentState().startGame('Name');
+        gameManager.getCurrentState().getPlayers().forEach(player => player.ai = undefined);
     });
 
     test('Game starts', () => {
@@ -67,6 +69,8 @@ describe('GAME state: playing a turn, no ai', () => {
     beforeEach(() => {
         gameManager.getCurrentState().startGame('Name');
         _GAME = gameManager.getCurrentState();
+        _GAME.getPlayers().forEach(player => player.ai = undefined);
+
     });
 
     test("handleCoordinates calls nextTurn if the move is valid", () => {
@@ -86,16 +90,20 @@ describe('GAME state: playing with ai', () => {
     beforeEach(() => {
         gameManager.getCurrentState().startGame('Name');
         _GAME = gameManager.getCurrentState();
-        aiSpy = jest.spyOn(_GAME, 'playAITurn');
     });
 
-    test('Second player has "ai" property set to true', () => {
-        expect(_GAME.getPlayers()[1].ai).toBe(true);
+    test('Second player has "ai" property set to an opponent ai object', () => {
+        expect(_GAME.getPlayers()[1].ai).toBeTruthy();
     });
 
-    test('If active player is ai, they play a turn automatically', () => {
+    test.only('If active player is ai, they play a turn automatically', () => {
         _GAME.handleCoordinates(0,0);
-        expect(aiSpy).toHaveBeenCalled();
+        expect(_GAME.roundsPlayed()).toBe(1);
+    });
+
+    test('If active player is NOT an AI, playAITurn does not get called', () => {
+        _GAME.handleCoordinates(0,0);
+        expect(_GAME.roundsPlayed()).toBe(0);
     });
 
     test('When AI turn is done, control goes back to player', () => {
@@ -120,7 +128,7 @@ describe('GAME: transition to POSTGAME', () => {
     test('If active player has not won yet, game continues as usual', () => {
         const player1 = _GAME.getActivePlayer();
         _GAME.handleCoordinates(0,0);
-        expect(_GAME.getActivePlayer()).not.toBe(player1);
+
         // Duck typing for GAME state
         expect(gameManager.getCurrentState().hasOwnProperty('nextTurn')).toBe(true);
     });

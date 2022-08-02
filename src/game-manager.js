@@ -44,6 +44,7 @@ const GameManager = () => {
         
         let activePlayer = players[0];
         
+        let aiTurnCount = 0;
     
         // FUNCTIONALITY
         function nextTurn() {
@@ -54,7 +55,24 @@ const GameManager = () => {
             }
 
             activePlayer = (activePlayer === players[0]) ? players[1] : players[0];
+
+            // If the newly active player is an ai, play AI turn
+            if (activePlayer.ai != undefined) { 
+                playAITurn();
+             };
         };
+
+        function playAITurn() {
+            // Generate random coords
+            const move = activePlayer.ai.getRandomLegalMove();
+            // Could add a timer here later. 
+
+            // Handle the coords (normal turn playing.)
+            handleCoordinates(move.x, move.y);
+
+            aiTurnCount ++;
+            console.log(aiTurnCount);
+        }   
     
         function handleCoordinates(x, y) {
             if (activePlayer.playTurn(x, y)) {
@@ -85,7 +103,9 @@ const GameManager = () => {
             getActivePlayer,
             handleCoordinates,
             nextTurn,
+            playAITurn,
             triggerWin,
+            roundsPlayed() { return aiTurnCount },
         }
     }
 

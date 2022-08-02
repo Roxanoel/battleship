@@ -1,11 +1,13 @@
+import { getRandomIndex } from "./utils";
+
 function OpponentAI(oppositeBoard) {
     function getLegalMoves() {
         const allCells = oppositeBoard.getCells();
         return allCells.filter(cell => cell.attempted === false);
     };
-    function getRandomLegalMove(randomiserFunction) {
+    function getRandomLegalMove() {
         const legalMoves = getLegalMoves();
-        const index = randomiserFunction(legalMoves.length);
+        const index = getRandomIndex(legalMoves.length);
 
         return {
             x: legalMoves[index].x,
