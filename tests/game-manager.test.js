@@ -81,9 +81,35 @@ describe('GAME state: playing a turn, no ai', () => {
 });
 
 describe('GAME: transition to POSTGAME', () => {
-    
+    let _GAME;
+    beforeEach(() => {
+        gameManager.startGame('Name');
+        _GAME = gameManager.getCurrentState();
+    });
+
+    test('If active player has not won yet, trigger nextTurn', () => {
+        
+    });
+
+    test('If active player has won, current state of game becomes postgame', () => {
+
+    });
 });
 
 describe('Post-game functions', () => {
+    test ('Postgame contains name of the winner as property', () => {
 
+    });
+
+    test('The correct winner name is stored', () => {
+
+    });
+
+    test('restartGame restores currentState back to pregame', () => {
+
+    });
+
+    test('Restarting a game after a win reinitialises boards', () => {
+
+    });
 });
