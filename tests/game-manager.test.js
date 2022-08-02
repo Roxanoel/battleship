@@ -80,6 +80,30 @@ describe('GAME state: playing a turn, no ai', () => {
     });
 });
 
+describe('GAME state: playing with ai', () => {
+    let _GAME;
+    let aiSpy;
+    beforeEach(() => {
+        gameManager.getCurrentState().startGame('Name');
+        _GAME = gameManager.getCurrentState();
+        aiSpy = jest.spyOn(_GAME, 'playAITurn');
+    });
+
+    test('Second player has "ai" property set to true', () => {
+        expect(_GAME.getPlayers()[1].ai).toBe(true);
+    });
+
+    test('If active player is ai, they play a turn automatically', () => {
+        _GAME.handleCoordinates(0,0);
+        expect(aiSpy).toHaveBeenCalled();
+    });
+
+    test('When AI turn is done, control goes back to player', () => {
+        _GAME.handleCoordinates(0,0);
+        expect(_GAME.getActivePlayer().name).toBe('Name');
+    });
+});
+
 describe('GAME: transition to POSTGAME', () => {
     let _GAME;
     beforeEach(() => {
