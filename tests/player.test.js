@@ -35,6 +35,7 @@ describe('Playing a turn', () => {
         expect(() => { player.playTurn(11, 11) }).toThrow();
     });
     test('playTurn returns false for already attempted cells', () => {
-
+        player.getOpponentBoard().attemptPlaceShip({x:0, y:0}, 4, 'h');
+        player.playTurn(0,0).toBe(false);
     });
 });
