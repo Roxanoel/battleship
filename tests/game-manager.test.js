@@ -1,5 +1,4 @@
 import GameManager from "../src/game-manager";
-import { GAME } from "../src/gamestates/game";
 import {jest} from "@jest/globals";
 
 const mockStartGame = jest.fn(x => x);
@@ -79,6 +78,10 @@ describe('GAME state: playing a turn, no ai', () => {
     test("handleCoordinates throws error if move is not valid", () => {
         expect(() => _GAME.handleCoordinates(34, 0)).toThrow();
     });
+});
+
+describe('GAME: transition to POSTGAME', () => {
+    
 });
 
 describe('Post-game functions', () => {
