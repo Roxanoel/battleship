@@ -34,4 +34,7 @@ describe('Playing a turn', () => {
     test('playTurn throws error if both coords are out of bounds', () => {
         expect(() => { player.playTurn(11, 11) }).toThrow();
     });
+    test('playTurn returns false for already attempted cells', () => {
+
+    });
 });

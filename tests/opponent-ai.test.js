@@ -31,6 +31,6 @@ describe('Making a random legal move', () => {
     }); */
 
     test('returnLegalMove returns coordinates of a random legal move', () => {
-        expect(opponentAI.getLegalMoveCoordinates(mockRandom)).toStrictEqual({x:0, y:0});
+        expect(opponentAI.getRandomLegalMove(mockRandom)).toStrictEqual({x:0, y:0});
     });
 });

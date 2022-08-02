@@ -3,7 +3,7 @@ function OpponentAI(oppositeBoard) {
         const allCells = oppositeBoard.getCells();
         return allCells.filter(cell => cell.attempted === false);
     };
-    function getLegalMoveCoordinates(randomiserFunction) {
+    function getRandomLegalMove(randomiserFunction) {
         const legalMoves = getLegalMoves();
         const index = randomiserFunction(legalMoves.length);
 
@@ -14,7 +14,7 @@ function OpponentAI(oppositeBoard) {
     };
 
     return {
-        getLegalMoveCoordinates,
+        getRandomLegalMove,
     }
 };
 
