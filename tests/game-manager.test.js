@@ -87,29 +87,56 @@ describe('GAME: transition to POSTGAME', () => {
         _GAME = gameManager.getCurrentState();
     });
 
-    test('If active player has not won yet, trigger nextTurn', () => {
-        
+    test('triggerWin changes currentState to POSTGAME', () => {
+        gameManager.triggerWin('Name');
+        // Duck typing
+        expect(gameManager.getCurrentState().hasOwnProperty('restartGame')).toBe(true);
+    });
+
+    test('If active player has not won yet, game continues as usual', () => {
+        const player1 = _GAME.getActivePlayer();
+        _GAME.handleCoordinates(0,0);
+        expect(_GAME.getActivePlayer()).not.toBe(player1);
+        // Duck typing for GAME state
+        expect(gameManager.getCurrentState().hasOwnProperty('nextTurn')).toBe(true);
     });
 
     test('If active player has won, current state of game becomes postgame', () => {
-
+        const player1 = _GAME.getActivePlayer();
+        // Simulate placing opponent ship
+        player1.getOpponentBoard().attemptPlaceShip({x:0, y:0}, 1, 'h');
+        // Play turn which should sink this ship
+        _GAME.handleCoordinates(0, 0);
+        // Duck typing to check state
+        expect(gameManager.getCurrentState().hasOwnProperty('restartGame')).toBe(true);
     });
 });
 
 describe('Post-game functions', () => {
-    test ('Postgame contains name of the winner as property', () => {
+    let _POSTGAME;
+    beforeEach(() => {
+        gameManager.triggerWin('Winner name');
+        _POSTGAME = gameManager.getCurrentState()
+    });
 
+    test ('Postgame contains name of the winner as property', () => {
+        expect(_POSTGAME.hasOwnProperty('winnerName')).toBe(true);
     });
 
     test('The correct winner name is stored', () => {
-
+        expect(_POSTGAME.winnerName).toBe('Winner name');
     });
 
     test('restartGame restores currentState back to pregame', () => {
-
+        _POSTGAME.restartGame();
+        // Duck typing
+        expect(gameManager.getCurrentState().hasOwnProperty('startGame')).toBe(true);
     });
 
-    test('Restarting a game after a win reinitialises boards', () => {
-
+    test('Restarting a game after a win reinitialises players', () => {
+        _POSTGAME.restartGame();
+        gameManager.getCurrentState().startGame('New player');
+        const _GAME = gameManager.getCurrentState();
+        expect(_GAME.getPlayers()[0].name).toBe('New player');
     });
 });
