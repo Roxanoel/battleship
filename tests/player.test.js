@@ -41,4 +41,8 @@ describe('Playing a turn', () => {
         player.getOpponentBoard().receiveAttack({x:0, y:0});
         expect(player.playTurn(0,0)).toBe(false);
     });
+    test('valid playTurn results in attack on opponent board', () => {
+        player.playTurn(0,0);
+        expect(player.getOpponentBoard().getCellFromCoords({x:0, y:0}).attempted).toBe(true);
+    });
 });
