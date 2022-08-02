@@ -37,24 +37,28 @@ describe('Game functions', () => {
 
     test('Players get initialised', () => {
         // could use mock to see if constructors are called ?
-        expect(gameManager.getPlayers().length).toBe(2)
+        expect(gameManager.getCurrentState().getPlayers().length).toBe(2)
     });
 
     test('Players get their own board + opponent board associated to them', () => {
-        expect(gameManager.getPlayers()[0].getGameboard()).toStrictEqual(gameManager.getBoards()[0]);
-        expect(gameManager.getPlayers()[0].getOpponentBoard()).toStrictEqual(gameManager.getBoards()[1]);
-        expect(gameManager.getPlayers()[1].getGameboard()).toStrictEqual(gameManager.getBoards()[1]);
-        expect(gameManager.getPlayers()[1].getOpponentBoard()).toStrictEqual(gameManager.getBoards()[0]);
+        expect(gameManager.getCurrentState().getPlayers()[0].getGameboard())
+            .toStrictEqual(gameManager.getCurrentState().getBoards()[0]);
+        expect(gameManager.getCurrentState().getPlayers()[0].getOpponentBoard())
+            .toStrictEqual(gameManager.getCurrentState().getBoards()[1]);
+        expect(gameManager.getCurrentState().getPlayers()[1].getGameboard())
+            .toStrictEqual(gameManager.getCurrentState().getBoards()[1]);
+        expect(gameManager.getCurrentState().getPlayers()[1].getOpponentBoard())
+            .toStrictEqual(gameManager.getCurrentState().getBoards()[0]);
     });
 
     test('Active player initialized as first player', () => {
-        expect(gameManager.getActivePlayer()).toBe(gameManager.getPlayers()[0]);
+        expect(gameManager.getCurrentState().getActivePlayer()).toBe(gameManager.getCurrentState().getPlayers()[0]);
     });
 
     // Changing turn
     test('nextTurn() changes the active player', () => {
-        gameManager.nextTurn();
-        expect(gameManager.getActivePlayer()).toBe(gameManager.getPlayers()[1]);
+        gameManager.getCurrentState().nextTurn();
+        expect(gameManager.getCurrentState().getActivePlayer()).toBe(gameManager.getCurrentState().getPlayers()[1]);
     });
 });
 
