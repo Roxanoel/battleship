@@ -34,8 +34,11 @@ describe('Playing a turn', () => {
     test('playTurn throws error if both coords are out of bounds', () => {
         expect(() => { player.playTurn(11, 11) }).toThrow();
     });
+    test('playTurn returns true for unattempted, valid coords', () => {
+        expect(player.playTurn(0,0)).toBe(true);
+    });
     test('playTurn returns false for already attempted cells', () => {
-        player.getOpponentBoard().attemptPlaceShip({x:0, y:0}, 4, 'h');
-        player.playTurn(0,0).toBe(false);
+        player.getOpponentBoard().receiveAttack({x:0, y:0});
+        expect(player.playTurn(0,0)).toBe(false);
     });
 });

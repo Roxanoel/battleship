@@ -155,6 +155,7 @@ function Gameboard() {
     // PUBLIC
     return {
         getCells,
+        getCellFromCoords,
         getShips,
         getMisses,
         attemptPlaceShip,
