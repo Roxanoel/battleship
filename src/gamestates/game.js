@@ -15,6 +15,12 @@ function GAME(playerName) {
         activePlayer = (activePlayer === players[0]) ? players[1] : players[0];
     };
 
+    function handleCoordinates(x, y) {
+        if (activePlayer.playTurn(x, y)) {
+            nextTurn();
+        };
+    }
+
     // GETTERS
     function getPlayers() {
         return players;
@@ -32,6 +38,7 @@ function GAME(playerName) {
         getPlayers,
         getBoards,
         getActivePlayer,
+        handleCoordinates,
         nextTurn,
     }
 }

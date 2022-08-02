@@ -70,21 +70,14 @@ describe('GAME state: playing a turn, no ai', () => {
         _GAME = gameManager.getCurrentState();
     });
 
-    test("handleCoordinates returns true if the move is valid", () => {
-        expect(_GAME.handleCoordinates(0,0)).toBe(true);
-    });
-
     test("handleCoordinates calls nextTurn if the move is valid", () => {
         const player1 = _GAME.getActivePlayer();
         _GAME.handleCoordinates(0,0);
         expect(_GAME.getActivePlayer()).not.toBe(player1);
     });
 
-    test("handleCoordinates does not call nextTurn if move is not valid", () => {
-        _GAME.handleCoordinates(0,0);
-        const player2 = _GAME.getActivePlayer();
-        _GAME.handleCoordinates(0,0);
-        expect(_GAME.getActivePlayer()).toBe(player2);
+    test("handleCoordinates throws error if move is not valid", () => {
+        expect(() => _GAME.handleCoordinates(34, 0)).toThrow();
     });
 });
 
