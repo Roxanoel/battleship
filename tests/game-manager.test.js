@@ -10,7 +10,7 @@ beforeEach(() => {
 
 describe('Pre-game functions', () => {
     test('GameManager initialises at pre-game', () => {
-        expect(gameManager.getCurrentState()).toBe('PREGAME');
+        expect(gameManager.getCurrentState().hasOwnProperty('canStartGame')).toBe(true);
     });
 
     test('Cannot advance to GAME state when no name is provided', () => {
