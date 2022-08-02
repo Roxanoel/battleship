@@ -8,6 +8,8 @@ function PREGAME() {
             callbackFn();
             return false;
         } 
+
+        return true;
     };
 
     return {

@@ -31,7 +31,8 @@ describe('Game functions', () => {
     });
 
     test('Game starts', () => {
-        expect(gameManager.getCurrentState()).toBe('GAME');
+        // Duck typing for GAME()
+        expect(gameManager.getCurrentState().hasOwnProperty('nextTurn')).toBe(true);
     });
 
     test('Players get initialised', () => {
