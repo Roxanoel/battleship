@@ -161,13 +161,13 @@ describe('Game lost condition', () => {
         testBoard.attemptPlaceShip(testBoard.getCells()[0], 2, 'h');
     });
 
-    test('gameLost returns false when there is an unsunk ship', () => {
-        expect(testBoard.gameLost()).toBe(false);
+    test('allSunk returns false when there is an unsunk ship', () => {
+        expect(testBoard.allSunk()).toBe(false);
     });
 
-    test('gameLost returns true when all ships are sunk', () => {
+    test('allSunk returns true when all ships are sunk', () => {
         testBoard.receiveAttack(testBoard.getCells()[0]);
         testBoard.receiveAttack(testBoard.getCells()[1]);
-        expect(testBoard.gameLost()).toBe(true);
+        expect(testBoard.allSunk()).toBe(true);
     });
 });

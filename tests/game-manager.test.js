@@ -10,16 +10,16 @@ beforeEach(() => {
 
 describe('Pre-game functions', () => {
     test('GameManager initialises at pre-game', () => {
-        expect(gameManager.getCurrentState().hasOwnProperty('canStartGame')).toBe(true);
+        expect(gameManager.getCurrentState().hasOwnProperty('startGame')).toBe(true);
     });
 
     test('Cannot advance to GAME state when no name is provided', () => {
-        gameManager.startGame('', mockStartGame);
+        gameManager.getCurrentState().startGame('', mockStartGame);
         expect(mockStartGame.mock.calls.length).toBe(0);
     });
     
     test('Game can start when name is provided', () => {
-        gameManager.startGame('Name', mockStartGame);
+        gameManager.getCurrentState().startGame('Name', mockStartGame);
         expect(mockStartGame.mock.calls.length).toBe(1);
     });
 });
@@ -27,7 +27,7 @@ describe('Pre-game functions', () => {
 describe('Game functions', () => {
     // Triggers transition to GAME manually
     beforeEach(() => {
-        gameManager.startGame('Name');
+        gameManager.getCurrentState().startGame('Name');
     });
 
     test('Game starts', () => {
@@ -65,7 +65,7 @@ describe('Game functions', () => {
 describe('GAME state: playing a turn, no ai', () => {
     let _GAME;
     beforeEach(() => {
-        gameManager.startGame('Name');
+        gameManager.getCurrentState().startGame('Name');
         _GAME = gameManager.getCurrentState();
     });
 
@@ -83,14 +83,14 @@ describe('GAME state: playing a turn, no ai', () => {
 describe('GAME: transition to POSTGAME', () => {
     let _GAME;
     beforeEach(() => {
-        gameManager.startGame('Name');
+        gameManager.getCurrentState().startGame('Name');
         _GAME = gameManager.getCurrentState();
     });
 
     test('triggerWin changes currentState to POSTGAME', () => {
-        gameManager.triggerWin('Name');
+        _GAME.triggerWin('Name');
         // Duck typing
-        expect(gameManager.getCurrentState().hasOwnProperty('restartGame')).toBe(true);
+        expect(gameManager.getCurrentState().hasOwnProperty('winnerName')).toBe(true);
     });
 
     test('If active player has not won yet, game continues as usual', () => {
@@ -108,19 +108,18 @@ describe('GAME: transition to POSTGAME', () => {
         // Play turn which should sink this ship
         _GAME.handleCoordinates(0, 0);
         // Duck typing to check state
-        expect(gameManager.getCurrentState().hasOwnProperty('restartGame')).toBe(true);
+        expect(gameManager.getCurrentState().hasOwnProperty('winnerName')).toBe(true);
     });
 });
 
 describe('Post-game functions', () => {
     let _POSTGAME;
+    let _GAME;
     beforeEach(() => {
-        gameManager.triggerWin('Winner name');
+        gameManager.getCurrentState().startGame();
+        _GAME = gameManager.getCurrentState();
+        _GAME.triggerWin('Winner name');
         _POSTGAME = gameManager.getCurrentState()
-    });
-
-    test ('Postgame contains name of the winner as property', () => {
-        expect(_POSTGAME.hasOwnProperty('winnerName')).toBe(true);
     });
 
     test('The correct winner name is stored', () => {

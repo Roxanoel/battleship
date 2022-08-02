@@ -148,8 +148,12 @@ function Gameboard() {
         misses.push(cellIndex);
         return false;
     };
-    function gameLost() {
-        return ships.every(ship => ship.isSunk());
+    function allSunk() {
+        if (ships.length > 0) {
+            return ships.every(ship => ship.isSunk());
+        }
+        // Will return false if no ships are placed. 
+        return false;
     }
 
     // PUBLIC
@@ -160,7 +164,7 @@ function Gameboard() {
         getMisses,
         attemptPlaceShip,
         receiveAttack,
-        gameLost,
+        allSunk,
     }
 
 }

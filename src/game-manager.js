@@ -4,12 +4,6 @@ import Gameboard from "./gameboard";
 const GameManager = () => {
     let currentState = PREGAME();  // Initial value
 
-    function startGame(playerName, callbackFn) {
-        if (currentState.canStartGame(playerName, callbackFn)) {
-            currentState = GAME(playerName);
-        }
-    };
-
     function getCurrentState() {
         return currentState;
     };
@@ -18,6 +12,12 @@ const GameManager = () => {
     // GAME STATES
 
     function PREGAME() {
+        function startGame(playerName, callbackFn) {
+            if (canStartGame(playerName, callbackFn)) {
+                currentState = GAME(playerName);
+            }
+        };
+
         function canStartGame(playerName, callbackFn) {
             // Do nothing (for now) if name is not provided.
             if (playerName === '') return false;
@@ -32,7 +32,7 @@ const GameManager = () => {
         };
     
         return {
-            canStartGame,
+            startGame,
         }
     }
 
@@ -47,6 +47,12 @@ const GameManager = () => {
     
         // FUNCTIONALITY
         function nextTurn() {
+            // Check for win first 
+            if (activePlayer.getOpponentBoard().allSunk()) {
+                triggerWin();
+                return;
+            }
+
             activePlayer = (activePlayer === players[0]) ? players[1] : players[0];
         };
     
@@ -55,6 +61,10 @@ const GameManager = () => {
                 nextTurn();
             };
         }
+
+        function triggerWin(winnerName) {
+            currentState = POSTGAME(winnerName);
+        };
     
         // GETTERS
         function getPlayers() {
@@ -75,12 +85,27 @@ const GameManager = () => {
             getActivePlayer,
             handleCoordinates,
             nextTurn,
+            triggerWin,
         }
     }
+
+    function POSTGAME(winnerName) {
+        function restartGame() {
+            currentState = PREGAME();
+        }
+        return {
+            winnerName,
+            restartGame,
+        }
+    }
+
+    // PUBLIC
+
     return {
         getCurrentState,
-        startGame,
     };
+
+
 };
 
 export default GameManager;
