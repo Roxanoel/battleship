@@ -5,9 +5,18 @@ function OpponentAI(oppositeBoard) {
         const allCells = oppositeBoard.getCells();
         return allCells.filter(cell => cell.attempted === false);
     };
-    function getRandomLegalMove() {
+    function getRandomLegalMove(testCallback) {
+        
         const legalMoves = getLegalMoves();
-        const index = getRandomIndex(legalMoves.length);
+
+        let index;
+        // For testing: 
+        if (testCallback != undefined) {
+            index = testCallback;
+        } else {
+            // Intended behaviour if no callback is provided 
+            index = getRandomIndex(legalMoves.length);
+        }
 
         return {
             x: legalMoves[index].x,
