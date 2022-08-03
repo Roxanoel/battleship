@@ -96,14 +96,9 @@ describe('GAME state: playing with ai', () => {
         expect(_GAME.getPlayers()[1].ai).toBeTruthy();
     });
 
-    test.only('If active player is ai, they play a turn automatically', () => {
+    test('If active player is ai, they play a turn automatically', () => {
         _GAME.handleCoordinates(0,0);
         expect(_GAME.roundsPlayed()).toBe(1);
-    });
-
-    test('If active player is NOT an AI, playAITurn does not get called', () => {
-        _GAME.handleCoordinates(0,0);
-        expect(_GAME.roundsPlayed()).toBe(0);
     });
 
     test('When AI turn is done, control goes back to player', () => {

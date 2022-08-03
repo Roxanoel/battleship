@@ -71,7 +71,6 @@ const GameManager = () => {
             handleCoordinates(move.x, move.y);
 
             aiTurnCount ++;
-            console.log(aiTurnCount);
         }   
     
         function handleCoordinates(x, y) {
