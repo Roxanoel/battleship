@@ -4,9 +4,26 @@ function OpponentAI(ownBoard, oppositeBoard) {
     
     function getLegalPlacements(shipLength, orientation) {
         const allCells = ownBoard.getCells();
+        return allCells.filter(cell => ownBoard.shipFits(cell, shipLength, orientation));
     };
     
     function getRandomShipPlacement(shipLength, orientation, testCallback) {
+        // Get all possible placements for a ship of this length and orientation
+        const legalPlacements = getLegalPlacements(shipLength, orientation);
+
+        let index;
+
+        // For testing: 
+        if (testCallback != undefined) {
+            index = testCallback;
+        } else {
+            index = getRandomIndex(legalPlacements.length);
+        }
+
+        return {
+            x: legalPlacements[index].x,
+            y: legalPlacements[index].y,
+        }
 
     };
     
