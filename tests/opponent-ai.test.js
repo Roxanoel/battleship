@@ -5,16 +5,17 @@ import convertCoordinatesToIndex from "../src/utils";
 let opponentAI;
 let oppositeBoard;
 
+const mockRandom = () => {
+    return 0;
+}
+
 beforeEach(() => {
     oppositeBoard = Gameboard();
     opponentAI = OpponentAI(oppositeBoard);
 });
 
 describe('Making a random legal move', () => {
-    function mockRandom() {
-        return 0;
-    }
-    
+
     // FUNCTIONS HIDDEN AFTER SUCCESFUL TESTING
     /* test('legalMoves returns array of currently unattempted cells on opposite board', () => {
         expect(opponentAI.getLegalMoves()).toStrictEqual(opponentAI.oppositeBoard.getCells());
@@ -34,8 +35,14 @@ describe('Making a random legal move', () => {
     test('returnLegalMove returns coordinates of a random legal move', () => {
         expect(opponentAI.getRandomLegalMove(mockRandom())).toStrictEqual({ x:0, y:0 });
     });
+});
 
-    //test('returnRandomLegalShipPlacement returns ')
+describe('Placing ships', () => {
+    const mockShipLength = 3;
+
+    test('returnRandomShipPlacement returns a random legal placement', () => {
+        expect(opponentAI.returnRandomShipPlacement(3, 'h', mockRandom())).toStrictEqual({ x:0, y:0 });
+    });
 });
 
 // NOW HIDDEN
