@@ -50,4 +50,9 @@ describe('Placing individual ships', () => {
         placeShip(aiPlayer, mockShipData);
         expect(aiPlayer.ai.getRandomShipPlacement).toHaveBeenCalled();
     });
+
+    test('placeShip for human does not call ai methods', () => {
+        placeShip(humanPlayer, mockShipData);
+        expect(humanPlayer.ai).toBe(undefined);
+    });
 });
