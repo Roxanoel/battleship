@@ -15,7 +15,7 @@ async function placeAllShipsRoutine(player) {
 async function shipSetup(players) {
     // for loop for each player 
 
-    // 
+    // return all ship placements in an array/object
 }
 
 export {
