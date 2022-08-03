@@ -13,7 +13,7 @@ async function placeAllShipsRoutine(player) {
 }
 
 async function shipSetup(players) {
-    // for loop for each player 
+    // for loop for each player; different methods for player vs ai
 
     // return all ship placements in an array/object
 }

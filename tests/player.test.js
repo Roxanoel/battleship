@@ -1,5 +1,5 @@
 import Player from "../src/player";
-import Gameboard from '../src/gameboard';
+import { Gameboard } from '../src/gameboard';
 
 let player;
 

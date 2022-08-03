@@ -1,4 +1,4 @@
-import Gameboard from "../src/gameboard";
+import { Gameboard } from "../src/gameboard";
 import OpponentAI from "../src/opponent-ai";
 import convertCoordinatesToIndex from "../src/utils";
 

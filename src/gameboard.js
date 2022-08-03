@@ -170,4 +170,6 @@ function Gameboard() {
 
 }
 
-export default Gameboard;
+export {
+    Gameboard
+};

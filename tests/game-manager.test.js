@@ -1,6 +1,6 @@
 import GameManager from "../src/game-manager";
 import OpponentAI from "../src/opponent-ai";
-import {jest} from "@jest/globals";
+import { jest } from "@jest/globals";
 
 const mockStartGame = jest.fn(x => x);
 let gameManager;

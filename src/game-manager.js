@@ -1,5 +1,5 @@
 import Player from "./player";
-import Gameboard from "./gameboard";
+import { Gameboard } from "./gameboard";
 
 const GameManager = () => {
     let currentState = PREGAME();  // Initial value
