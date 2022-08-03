@@ -3,7 +3,7 @@ import OpponentAI from "./opponent-ai";
 function Player(name, gameboard, opponentBoard) {
     let ai;
 
-    if (name === 'Opponent') ai = OpponentAI(opponentBoard);
+    if (name === 'Opponent') ai = OpponentAI(gameboard, opponentBoard);
 
     function playTurn(x, y) {
         // Error moves 

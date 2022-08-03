@@ -3,6 +3,7 @@ import OpponentAI from "../src/opponent-ai";
 import convertCoordinatesToIndex from "../src/utils";
 
 let opponentAI;
+let ownBoard;
 let oppositeBoard;
 
 const mockRandom = () => {
@@ -10,8 +11,9 @@ const mockRandom = () => {
 }
 
 beforeEach(() => {
+    ownBoard = Gameboard();
     oppositeBoard = Gameboard();
-    opponentAI = OpponentAI(oppositeBoard);
+    opponentAI = OpponentAI(ownBoard, oppositeBoard);
 });
 
 describe('Making a random legal move', () => {
@@ -41,7 +43,7 @@ describe('Placing ships', () => {
     const mockShipLength = 3;
 
     test('returnRandomShipPlacement returns a random legal placement', () => {
-        expect(opponentAI.returnRandomShipPlacement(3, 'h', mockRandom())).toStrictEqual({ x:0, y:0 });
+        expect(opponentAI.getRandomShipPlacement(3, 'h', mockRandom())).toStrictEqual({ x:0, y:0 });
     });
 });
 

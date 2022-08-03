@@ -1,6 +1,15 @@
 import { getRandomIndex } from "./utils";
 
-function OpponentAI(oppositeBoard) {
+function OpponentAI(ownBoard, oppositeBoard) {
+    
+    function getLegalPlacements(shipLength, orientation) {
+        const allCells = ownBoard.getCells();
+    };
+    
+    function getRandomShipPlacement(shipLength, orientation, testCallback) {
+
+    };
+    
     function getLegalMoves() {
         const allCells = oppositeBoard.getCells();
         return allCells.filter(cell => cell.attempted === false);
@@ -26,7 +35,8 @@ function OpponentAI(oppositeBoard) {
 
     return {
         getRandomLegalMove,
-    }
+        getRandomShipPlacement,
+    };
 };
 
 export default OpponentAI;

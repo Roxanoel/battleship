@@ -162,6 +162,7 @@ function Gameboard() {
         getCellFromCoords,
         getShips,
         getMisses,
+        shipFits,
         attemptPlaceShip,
         receiveAttack,
         allSunk,
