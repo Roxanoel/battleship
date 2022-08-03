@@ -1,5 +1,6 @@
 async function placeShip(player, shipInfo) {
     // read whether the player is ai, if the player is ai use the ai to place the ship
+    player.ai.getRandomShipPlacement();
     //await info for placement, would come from form in final app v1, no drag and drop yet
     //then place ship at the right spot using ref to player
 }

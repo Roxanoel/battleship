@@ -47,7 +47,7 @@ describe('Placing individual ships', () => {
     });
 
     test('placeShip for AI calls the getRandomShipPlacement method', () => {
-        placeShip(mockOpponent, mockShipData);
-        console.log(aiPlayer.ai.getRandomShipPlacement.mock.calls);
+        placeShip(aiPlayer, mockShipData);
+        expect(aiPlayer.ai.getRandomShipPlacement).toHaveBeenCalled();
     });
 });
